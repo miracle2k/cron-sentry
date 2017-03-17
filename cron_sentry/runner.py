@@ -2,7 +2,6 @@ import sys
 from getpass import getuser
 from os import getenv, path, SEEK_END, environ
 from raven import Client
-from raven.transport import HTTPTransport
 from subprocess import call
 from tempfile import TemporaryFile
 from argparse import ArgumentParser, REMAINDER
@@ -167,7 +166,7 @@ class CommandReporter(object):
 
         message = "Command \"%s\" failed" % (self.command,)
 
-        client = Client(transport=HTTPTransport, dsn=self.dsn, string_max_length=self.string_max_length)
+        client = Client(dsn=self.dsn, string_max_length=self.string_max_length)
         extra = self.extra.copy()
         extra.update({
             'command': self.command,
